@@ -1,0 +1,7 @@
+name = Hoygan
+description = Hoygan
+core = 7.x
+package = Other
+
+
+version = VERSION

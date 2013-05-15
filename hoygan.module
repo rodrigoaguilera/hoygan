@@ -1,0 +1,35 @@
+<?php
+
+function hoygan_form_alter(&$form, &$form_state, $form_id) {
+   //dpm($form_id);
+  if ($form_id=='publicaci_n_node_form'){
+    $form['#validate'][] = 'hoygan_validate';
+  } else if($form_id=='user_register_form' || $form_id == 'user_profile_form'){
+    $form['#validate'][] = 'hoygan_validate_username';
+  }
+}
+
+function hoygan_validate($form, &$form_state){
+  //dpm($form_state);
+  $title=$form_state['values']['title'];
+  if (preg_match_all('/[A-Z]/',$title)/strlen($title)>0.3){
+    //form_set_error('title',t( 'Title contains too many uppercase letters, please consider the <a href="http://en.wikipedia.org/wiki/Netiquette"  >Netiquette </a>'));
+    form_set_error('title',t( 'El título contiene demasiadas mayusculas, por favor ten en cuenta la <a href="http://es.wikipedia.org/wiki/Netiquette"  >Netiquette </a>'));
+  }
+  $body=$form_state['values']['field_body']['und'][0]['value'];
+  if (preg_match_all('/[A-Z]/',$body)/strlen($body)>0.3){
+    //form_set_error('field_body',t( 'Body contains too many uppercase letters, please consider the <a href="http://en.wikipedia.org/wiki/Netiquette"  >Netiquette </a>'));
+  
+    form_set_error('field_body',t( 'La descripción contiene demasiadas mayusculas, por favor ten en cuenta la <a href="http://es.wikipedia.org/wiki/Netiquette"  >Netiquette </a>'));
+  }
+}
+
+function hoygan_validate_username($form, &$form_state){
+  //dpm($form_state);
+  $name=$title=$form_state['values']['name'];
+  if (preg_match_all('/[A-Z]/',$name)/strlen($name)>0.3){
+  //form_set_error('title',t( 'Your user name contains too many uppercase letters, please consider the <a href="http://en.wikipedia.org/wiki/Netiquette"  >Netiquette </a>'));
+  
+  form_set_error('title',t( 'Tu nombre de usuario contiene demasiadas mayusculas, por favor ten en cuenta la <a href="http://es.wikipedia.org/wiki/Netiquette"  >Netiquette </a>'));
+  }
+}
